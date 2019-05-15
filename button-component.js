@@ -17,12 +17,9 @@ template.innerHTML = `
       font-weight: 500;
       padding: 12px 20px;
       font-size: 14px;
-      border-radius: 4px
+      border-radius: 4px;
+      box-shadow: 0 1px 2px darkgray;
     }
-    :host::after {
-      content: "Button";
-    }
-    
     :host([type='primary']) {
       color: #fff;
       background-color: #409eff;
@@ -69,6 +66,30 @@ template.innerHTML = `
     :host([circle]) {
       border-radius: 50%;
     }
+    :host([icon]){
+      padding: 12px;
+      color: #fff;
+    }
+    :host([icon='icon-delete']){
+      content: url('../images/garbage.png');
+    }
+    :host([icon='icon-star-off']){
+      content: url('../images/star.png');
+    }
+    :host([icon='icon-message']){
+      content: url('../images/mail.png');
+    }
+    :host([icon='icon-check']){
+      content: url('../images/tick.png');
+    }
+    :host([icon='icon-edit']){
+      content: url('../images/edit.png');
+    }
+    :host([icon='icon-search']){
+      content: url('../images/search.png');
+      padding: 12px;
+      color: #fff;
+    }
     :host(:hover) {
       background-color: rgb(64, 158, 255, 0.15);
       color: #409eff;
@@ -99,15 +120,42 @@ template.innerHTML = `
       background-color: rgb(64, 158, 255, 0.85);
       border-color: rgb(64, 158, 255, 0.85);
     }
-
+    :host(:active) {
+      background-color: rgb(64, 158, 255, 0.15);
+      color: #0077f3;
+      border: 1px solid #0077f3;
+    }
+    :host([type='warning']:active) {
+      color: #fff;
+      background-color: #bd7b18;
+      border-color: #bd7b18;
+    }
+    :host([type='danger']:active) {
+      color: #fff;
+      background-color: #f02424;
+      border-color: #f02424;
+    }
+    :host([type='info']:active) {
+      color: #fff;
+      background-color: #6a6d73;
+      border-color: #6a6d73;
+    }
+    :host([type='success']:active) {
+      color: #fff;
+      background-color: #488728;
+      border-color: #488728;
+    }
+    :host([type='primary']:active) {
+      color: #fff;
+      background-color: #0077f3;
+      border-color: #0077f3;
+    }
   </style>
+  <div id="btn-component">Button</div>
 `
 
 /* global HTMLElement */
 /**
- * This is hello world component with 2 core attributes.<br>
- * - rainbow {boolean} - true if you want the text to have rainbow color, false otherwise.<br>
- * - language {string} - string value of the language (for example: en, sp, fr, or ch).
  */
 class ButtonComponent extends HTMLElement {
   /**
@@ -117,11 +165,14 @@ class ButtonComponent extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
-    this.addEventListener('click', this.clickEffect)
+    if (this.textContent !== '') {
+      this.shadowRoot.querySelector('div').textContent = this.textContent
+    }
+    // this.addEventListener('click', this.clickEffect)
   }
 
   clickEffect (event) {
-    this.classList.add('hello')
+    // this.classList.add('hello')
   }
 
   /**
@@ -145,28 +196,6 @@ class ButtonComponent extends HTMLElement {
     console.log('Component disconnect!')
   }
 
-  /*
-  handleType (newVal) {
-    var type = ['primary', 'success', 'info', 'danger', 'warning']
-    if (type.indexOf(newVal) !== -1) {
-      this.classList.add(newVal)
-    }
-  }
-
-  handleSize (newVal) {
-    var size = ['medium', 'small', 'mini']
-    if (size.indexOf(newVal) !== -1) {
-      this.classList.add(newVal)
-    }
-  }
-
-  handleRound () {
-    this.classList.add('round')
-  }
-  handleCircle () {
-    this.classList.add('circle')
-  }
-  */
   /**
    * Callback for when the supported attributes change its value.
    * @param {string} attrName - the name of the attribute.
@@ -174,20 +203,6 @@ class ButtonComponent extends HTMLElement {
    * @param {*} newVal - the new value of the attribute.
    */
   attributeChangedCallback (attrName, oldVal, newVal) {
-    /*
-    if (attrName === 'type') {
-      this.handleType(newVal)
-    }
-    if (attrName === 'size') {
-      this.handleSize(newVal)
-    }
-    if (attrName === 'round') {
-      this.handleRound()
-    }
-    if (attrName === 'circle') {
-      this.handleCircle()
-    }
-    */
   }
 }
 window.customElements.define('button-component', ButtonComponent)
