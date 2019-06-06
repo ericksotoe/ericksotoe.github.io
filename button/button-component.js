@@ -1,646 +1,127 @@
+'use strict'
+
+require('core-js/modules/es7.symbol.async-iterator')
+
+require('core-js/modules/es6.symbol')
+
+require('core-js/modules/web.dom.iterable')
+
+require('core-js/modules/es6.array.iterator')
+
+require('core-js/modules/es6.string.iterator')
+
+require('core-js/modules/es6.map')
+
+require('core-js/modules/es6.reflect.construct')
+
+require('core-js/modules/es6.regexp.to-string')
+
+require('core-js/modules/es6.object.to-string')
+
+function _typeof (obj) { if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+
+function _classCallCheck (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
+
+function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+
+function _createClass (Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor }
+
+function _possibleConstructorReturn (self, call) { if (call && (_typeof(call) === 'object' || typeof call === 'function')) { return call } return _assertThisInitialized(self) }
+
+function _assertThisInitialized (self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return self }
+
+function _inherits (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function') } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass) }
+
+function _wrapNativeSuper (Class) { var _cache = typeof Map === 'function' ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper (Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== 'function') { throw new TypeError('Super expression must either be null or a function') } if (typeof _cache !== 'undefined') { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper) } function Wrapper () { return _construct(Class, arguments, _getPrototypeOf(this).constructor) } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class) }; return _wrapNativeSuper(Class) }
+
+function isNativeReflectConstruct () { if (typeof Reflect === 'undefined' || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === 'function') return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true } catch (e) { return false } }
+
+function _construct (Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct } else { _construct = function _construct (Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance } } return _construct.apply(null, arguments) }
+
+function _isNativeFunction (fn) { return Function.toString.call(fn).indexOf('[native code]') !== -1 }
+
+function _setPrototypeOf (o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf (o, p) { o.__proto__ = p; return o }; return _setPrototypeOf(o, p) }
+
+function _getPrototypeOf (o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf (o) { return o.__proto__ || Object.getPrototypeOf(o) }; return _getPrototypeOf(o) }
+
 var template = document.createElement('template')
-template.innerHTML = `
-  <style>
-    :host{
-      
-      /* Common Theme */
-      --color-white: #fff;
-      --text-color: #000;
-      --btn-warning-text: #fff;
-
-      /* Default Element Theme */
-      --btn-color-default: #fff;
-      --btn-color-warning: #e6a23c;
-      --btn-color-success: #67c23a;
-      --btn-color-danger: #f56c6c;
-      --btn-color-primary: #409eff;
-      --btn-color-info: #909399;
-
-      --btn-default-border: #dcdfe6;
-
-      --btn-default-hover: rgba(64, 158, 255, 0.15);
-      --btn-default-hover-border: rgba(64, 158, 255, 0.3);
-      --btn-default-color: #409eff;
-
-      --btn-warning-hover: rgba(230, 162, 60, 0.85);
-      --btn-danger-hover: rgba(245, 108, 108, 0.85);
-      --btn-info-hover: rgba(144, 147, 153, 0.85);
-      --btn-success-hover: rgba(103, 194, 58, 0.85);
-      --btn-primary-hover: rgba(64, 158, 255, 0.85);
-
-      --btn-default-active: #0077f3;
-      --btn-default-active-background: rgba(64, 158, 255, 0.15);
-      --btn-default-active-color: #0077f3;
-
-      --btn-warning-active: #bd7b18;
-      --btn-danger-active: #f02424;
-      --btn-info-active: #6a6d73;
-      --btn-success-active: #488728;
-      --btn-primary-active: #0077f3;
-
-      --btn-default-plain-border: #dcdfe6;
-      --btn-default-plain-background: #fff;
-      --btn-default-plain-color: #000;
-
-      --btn-default-plain-border-active: #0077f3;
-      --btn-default-plain-background-active: #fff;
-      --btn-default-plain-color-active: #0077f3;
-
-      --btn-default-plain-border-hover: #409eff;
-      --btn-default-plain-background-hover: #fff;
-      --btn-default-plain-color-hover: #409eff;
-
-      --btn-primary-plain: rgba(64, 158, 255, 0.15);
-      --btn-primary-plain-border: rgba(64, 158, 255, 0.3);
-      
-      --btn-success-plain: rgba(103, 194, 58, 0.15);
-      --btn-success-plain-border: rgba(103, 194, 58, 0.3);
-      
-      --btn-info-plain: rgba(144, 147, 153, 0.15);
-      --btn-info-plain-border: rgba(144, 147, 153, 0.3);
-      
-      --btn-danger-plain: rgba(245, 108, 108, 0.15);
-      --btn-danger-plain-border: rgba(245, 108, 108, 0.3);
-
-      --btn-warning-plain: rgba(230, 162, 60, 0.15);
-      --btn-warning-plain-border: rgba(230, 162, 60, 0.3);
-    }
-
-    :host([theme='bootstrap']) {
-
-      /* Common Theme */
-      --color-white: #fff;
-      --text-color: #fff;
-      --btn-warning-text: #000;
-
-      /* Default Element Theme */
-      --btn-color-default: #6c757d;
-      --btn-color-warning: #ffc107;
-      --btn-color-success: #28a745;
-      --btn-color-danger: #dc3545;
-      --btn-color-primary: #007bff;
-      --btn-color-info: #17a2b8;
-
-      --btn-default-border: #6c757d;
-
-      --btn-default-hover: rgb(84, 92, 99);
-      --btn-default-hover-border: rgb(84, 92, 99);
-      --btn-default-color: #fff;
-
-      --btn-default-plain-border: rgba(108, 117, 125, 1);
-      --btn-default-plain-background: #fff;
-      --btn-default-plain-color: #6c757d;
-
-      --btn-default-plain-border-hover: rgb(84, 92, 99);
-      --btn-default-plain-background-hover: rgb(84, 92, 99);
-      --btn-default-plain-color-hover: #fff;
-
-      --btn-default-plain-border-active: #31363a;
-      --btn-default-plain-background-active: #31363a;
-      --btn-default-plain-color-active: #fff;
-
-      --btn-warning-hover: #edb100;
-      --btn-danger-hover: #d32535;
-      --btn-info-hover: #148ea1;
-      --btn-success-hover: #23923d;
-      --btn-primary-hover: #006fe6;
-
-      --btn-default-active: #31363a;
-      --btn-default-active-background: #31363a;
-      --btn-default-active-color: #fff;
-
-
-      --btn-warning-active: #d39e00;
-      --btn-danger-active: #a71d2a;
-      --btn-info-active: #0f6674;
-      --btn-success-active: #19692c;
-      --btn-primary-active: #0056b3;
-
-
-      --btn-primary-plain: #fff;
-      --btn-primary-plain-border: rgba(0, 123, 255, 1);
-      
-      --btn-success-plain: #fff;
-      --btn-success-plain-border: rgba(40, 167, 69, 1);
-      
-      --btn-info-plain: #fff;
-      --btn-info-plain-border: rgba(23, 162, 184, 1);
-      
-      --btn-danger-plain: #fff;
-      --btn-danger-plain-border: rgba(220, 53, 69, 1);
-
-      --btn-warning-plain: #fff;
-      --btn-warning-plain-border: rgba(255, 193, 7, 1);
-    }
-
-    /* Default css attribute for the button */
-    :host{
-      display: inline-block;
-      line-height: 1;
-      white-space: nowrap;
-      cursor: pointer;
-      background: var(--btn-color-default);
-      border: 1px solid var(--btn-default-border);
-      color: var(--text-color);
-      text-align: center;
-      box-sizing: border-box;
-      outline: none;
-      margin: 0;
-      transition: .1s;
-      font-weight: 500;
-      padding: 12px 20px;
-      font-size: 14px;
-      border-radius: 4px;
-      box-shadow: 0 1px 2px darkgray;
-    }
-
-    /* CSS classes for type attribute */
-
-    :host([type='primary']) {
-      color: #fff;
-      background-color: var(--btn-color-primary);
-      border-color: var(--btn-color-primary);
-    }
-
-    :host([type='success']){
-      color: #fff;
-      background-color: var(--btn-color-success);
-      border-color: var(--btn-color-success);
-    }
-
-    :host([type='warning']){
-      color: var(--btn-warning-text);
-      background-color: var(--btn-color-warning);
-      border-color: var(--btn-color-warning);
-    }
-
-    :host([type='danger']){
-      color: #fff;
-      background-color: var(--btn-color-danger);
-      border-color: var(--btn-color-danger);
-    }
-
-    :host([type='info']){
-      color: #fff;
-      background-color: var(--btn-color-info);
-      border-color: var(--btn-color-info);
-    }
-
-    /* CSS classes for size attribute */
-
-    :host([size='medium']){
-      padding: 10px 20px;
-      font-size: 14px;
-      border-radius: 4px;
-    }
-
-    :host([size='small']){
-      padding: 9px 15px;
-      font-size: 12px;
-      border-radius: 3px;
-    }
-
-    :host([size='mini']){
-      padding: 7px 15px;
-      font-size: 12px;
-      border-radius: 3px;
-    }
-
-    /* CSS classes for round attribute */
-
-    :host([round]) {
-      border-radius: 20px;
-    }
-
-    /* CSS classes for circle attribute*/
-
-    :host([circle]) {
-      border-radius: 50%;
-    }
-
-    /* CSS classes for on hover*/
-
-    :host(:hover) {
-      background-color: var(--btn-default-hover);
-      color: var(--btn-default-color);
-      border: 1px solid var(--btn-default-hover-border);
-    }
-
-    /* CSS classes for on hover with specific button type */
-
-    :host([type='warning']:hover) {
-      color: var(--btn-warning-text);
-      background-color: var(--btn-warning-hover);
-      border-color: var(--btn-warning-hover);
-    }
-
-    :host([type='danger']:hover) {
-      color: #fff;
-      background-color: var(--btn-danger-hover);
-      border-color: var(--btn-danger-hover);
-    }
-
-    :host([type='info']:hover) {
-      color: #fff;
-      background-color: var(--btn-info-hover);
-      border-color: var(--btn-info-hover);
-    }
-
-    :host([type='success']:hover) {
-      color: #fff;
-      background-color: var(--btn-success-hover);
-      border-color: var(--btn-success-hover);
-    }
-
-    :host([type='primary']:hover) {
-      color: #fff;
-      background-color: var(--btn-primary-hover);
-      border-color: var(--btn-primary-hover);
-    }
-
-    /* CSS classes when being clicked */
-
-    :host(:active) {
-      background-color: var(--btn-default-active-background);
-      color: var(--btn-default-active-color);
-      border: 1px solid var(--btn-default-active);
-    }
-
-    /* CSS classes when being clicked for specific button type */
-
-    :host([type='warning']:active) {
-      color: var(--btn-warning-text);
-      background-color: var(--btn-warning-active);
-      border-color: var(--btn-warning-active);
-    }
-
-    :host([type='danger']:active) {
-      color: #fff;
-      background-color: var(--btn-danger-active);
-      border-color: var(--btn-danger-active);
-    }
-
-    :host([type='info']:active) {
-      color: #fff;
-      background-color: var(--btn-info-active);
-      border-color: var(--btn-info-active);
-    }
-
-    :host([type='success']:active) {
-      color: #fff;
-      background-color: var(--btn-success-active);
-      border-color: var(--btn-success-active);
-    }
-
-    :host([type='primary']:active) {
-      color: #fff;
-      background-color: var(--btn-primary-active);
-      border-color: var(--btn-primary-active);
-    }
-
-    :host([plain]) {
-      background-color: var(--btn-default-plain-background);
-      color: var(--btn-default-plain-color);
-      border: 1px solid var(--btn-default-plain-border);
-    }
-
-    /* CSS classes for plain button */
-
-    :host([plain]:hover) {
-      background-color: var(--btn-default-plain-background-hover);
-      color: var(--btn-default-plain-color-hover);
-      border: 1px solid var(--btn-default-plain-border-hover);
-    }
-
-    :host([plain]:active) {
-      background-color: var(--btn-default-plain-background-active);
-      color: var(--btn-default-plain-color-active);
-      border: 1px solid var(--btn-default-plain-border-active);
-    }
-
-    :host([type='primary'][plain]) {
-      color: var(--btn-color-primary);
-      background-color: var(--btn-primary-plain);
-      border-color: var(--btn-primary-plain-border);
-    }
-
-    :host([type='primary'][plain]:hover) {
-      background-color: var(--btn-color-primary);
-      color: #fff;
-      border: 1px solid var(--btn-color-primary);
-    }
-
-    :host([type='primary'][plain]:active) {
-      color: #fff;
-      background-color: var(--btn-primary-active);
-      border-color: var(--btn-primary-active);
-    }
-
-    :host([type='success'][plain]) {
-      color: var(--btn-color-success);
-      background-color: var(--btn-success-plain);
-      border-color: var(--btn-success-plain-border);
-    }
-
-    :host([type='success'][plain]:hover) {
-      background-color: var(--btn-color-success);
-      color: #fff;
-      border: 1px solid var(--btn-color-success);
-    }
-
-    :host([type='success'][plain]:active) {
-      color: #fff;
-      background-color: var(--btn-success-active);
-      border-color: var(--btn-success-active);
-    }
-
-    :host([type='info'][plain]) {
-      color: var(--btn-color-info);
-      background-color: var(--btn-info-plain);
-      border-color: var(--btn-info-plain-border);
-    }
-
-    :host([type='info'][plain]:hover) {
-      background-color: var(--btn-color-info);
-      color: #fff;
-      border: 1px solid var(--btn-color-info);
-    }
-
-    :host([type='info'][plain]:active) {
-      color: #fff;
-      background-color: var(--btn-info-active);
-      border-color: var(--btn-info-active);
-    }    
-
-    :host([type='danger'][plain]) {
-      color: var(--btn-color-danger);
-      background-color: var(--btn-danger-plain);
-      border-color: var(--btn-danger-plain-border);
-    }
-
-    :host([type='danger'][plain]:hover) {
-      background-color: var(--btn-color-danger);
-      color: #fff;
-      border: 1px solid var(--btn-color-danger);
-    }
-
-    :host([type='danger'][plain]:active) {
-      color: #fff;
-      background-color: var(--btn-danger-active);
-      border-color: var(--btn-danger-active);
-    }
-
-    :host([type='warning'][plain]) {
-      color: var(--btn-color-warning);
-      background-color: var(--btn-warning-plain);
-      border-color: var(--btn-warning-plain-border);
-    }
-
-    :host([type='warning'][plain]:hover) {
-      background-color: var(--btn-color-warning);
-      color: var(--btn-warning-text);
-      border: 1px solid var(--btn-color-warning);
-    }
-
-    :host([type='warning'][plain]:active) {
-      color: var(--btn-warning-text);
-      background-color: var(--btn-warning-active);
-      border-color: var(--btn-warning-active);
-    }
-
-    /* CSS classes for disabled button */
-
-    :host([disabled]){
-      border: 1px solid #999999;
-      background-color: #cccccc;
-      pointer-events: none;
-      opacity: 0.4;
-    }
-
-    /* CSS classes for button with icon */
-
-    :host([icon]){
-      padding: 12px;
-      color: #fff;
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-      user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-    }
-
-    :host([icon='icon-delete']){
-      content: url('../images/garbage.png');
-    }
-
-    :host([icon='icon-star-off']){
-      content: url('../images/star.png');
-    }
-
-    :host([icon='icon-message']){
-      content: url('../images/mail.png');
-    }
-
-    :host([icon='icon-check']){
-      content: url('../images/tick.png');
-    }
-
-    :host([icon='icon-edit']){
-      content: url('../images/edit.png');
-    }
-
-    :host([icon='icon-search']){
-      content: url('../images/search.png');
-      padding: 12px;
-      color: #fff;
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-      user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-    }
-
-    /* Source https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
-
-    .noselect {
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-      user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-    }
-
-    p {
-      padding: 0px;
-      margin: 0px;
-    }
-  </style>
-  <p class="noselect"></p>
-`
-
+template.innerHTML = "\n  <style>\n    :host{\n      display: inline-block;\n      line-height: 1;\n      white-space: nowrap;\n      cursor: pointer;\n      background: #fff;\n      border: 1px solid #dcdfe6;\n      color: #606266;\n      text-align: center;\n      box-sizing: border-box;\n      outline: none;\n      margin: 0;\n      transition: .1s;\n      font-weight: 500;\n      padding: 12px 20px;\n      font-size: 14px;\n      border-radius: 4px;\n      box-shadow: 0 1px 2px darkgray;\n    }\n    :host([type='primary']) {\n      color: #fff;\n      background-color: #409eff;\n      border-color: #409eff;\n    }\n    :host([type='success']){\n      color: #fff;\n      background-color: #67c23a;\n      border-color: #67c23a;\n    }\n    :host([type='warning']){\n      color: #fff;\n      background-color: #e6a23c;\n      border-color: #e6a23c;\n    }\n    :host([type='danger']){\n      color: #fff;\n      background-color: #f56c6c;\n      border-color: #f56c6c;\n    }\n    :host([type='info']){\n      color: #fff;\n      background-color: #909399;\n      border-color: #909399;\n    }\n    :host([size='medium']){\n      padding: 10px 20px;\n      font-size: 14px;\n      border-radius: 4px;\n    }\n    :host([size='small']){\n      padding: 9px 15px;\n      font-size: 12px;\n      border-radius: 3px;\n    }\n    :host([size='mini']){\n      padding: 7px 15px;\n      font-size: 12px;\n      border-radius: 3px;\n    }\n    :host([round]) {\n      border-radius: 20px;\n    }\n    :host([circle]) {\n      border-radius: 50%;\n    }\n    :host([icon]){\n      padding: 12px;\n      color: #fff;\n    }\n    :host([icon='icon-delete']){\n      content: url('../images/garbage.png');\n    }\n    :host([icon='icon-star-off']){\n      content: url('../images/star.png');\n    }\n    :host([icon='icon-message']){\n      content: url('../images/mail.png');\n    }\n    :host([icon='icon-check']){\n      content: url('../images/tick.png');\n    }\n    :host([icon='icon-edit']){\n      content: url('../images/edit.png');\n    }\n    :host([icon='icon-search']){\n      content: url('../images/search.png');\n      padding: 12px;\n      color: #fff;\n    }\n    :host(:hover) {\n      background-color: rgb(64, 158, 255, 0.15);\n      color: #409eff;\n      border: 1px solid #409eff;\n    }\n    :host([type='warning']:hover) {\n      color: #fff;\n      background-color: rgb(230, 162, 60, 0.85);\n      border-color: rgb(230, 162, 60, 0.85);\n    }\n    :host([type='danger']:hover) {\n      color: #fff;\n      background-color: rgb(245, 108, 108, 0.85);\n      border-color: rgb(245, 108, 108, 0.85);\n    }\n    :host([type='info']:hover) {\n      color: #fff;\n      background-color: rgb(144, 147, 153, 0.85);\n      border-color: rgb(144, 147, 153, 0.85);\n    }\n    :host([type='success']:hover) {\n      color: #fff;\n      background-color: rgb(103, 194, 58, 0.85);\n      border-color: rgb(103, 194, 58, 0.85);\n    }\n    :host([type='primary']:hover) {\n      color: #fff;\n      background-color: rgb(64, 158, 255, 0.85);\n      border-color: rgb(64, 158, 255, 0.85);\n    }\n    :host(:active) {\n      background-color: rgb(64, 158, 255, 0.15);\n      color: #0077f3;\n      border: 1px solid #0077f3;\n    }\n    :host([type='warning']:active) {\n      color: #fff;\n      background-color: #bd7b18;\n      border-color: #bd7b18;\n    }\n    :host([type='danger']:active) {\n      color: #fff;\n      background-color: #f02424;\n      border-color: #f02424;\n    }\n    :host([type='info']:active) {\n      color: #fff;\n      background-color: #6a6d73;\n      border-color: #6a6d73;\n    }\n    :host([type='success']:active) {\n      color: #fff;\n      background-color: #488728;\n      border-color: #488728;\n    }\n    :host([type='primary']:active) {\n      color: #fff;\n      background-color: #0077f3;\n      border-color: #0077f3;\n    }\n  </style>\n  <div id=\"btn-component\">Button</div>\n"
 /* global HTMLElement */
+
 /**
- * This is a custom button component
- * Ported from https://element.eleme.io/#/en-US/component/button
  */
-class ButtonComponent extends HTMLElement {
+
+var ButtonComponent =
+/* #__PURE__ */
+(function (_HTMLElement) {
+  _inherits(ButtonComponent, _HTMLElement)
+
   /**
-   * ButtonComponent constructor. Attaching button template into
-   * the shadowRoot of the component
+   * ButtonComponent constructor.
    * @constructor
    */
-  constructor () {
-    super()
-    this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+  function ButtonComponent () {
+    var _this
+
+    _classCallCheck(this, ButtonComponent)
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ButtonComponent).call(this))
+
+    _this.attachShadow({
+      mode: 'open'
+    }).appendChild(template.content.cloneNode(true))
+
+    if (_this.textContent !== '') {
+      _this.shadowRoot.querySelector('div').textContent = _this.textContent
+    } // this.addEventListener('click', this.clickEffect)
+
+    return _this
   }
 
-  /**
-   * Method returns a list of attributes supported by this component.<br>
-   */
-  static get observedAttributes () {
-    return ['size', 'type', 'plain', 'round', 'circle', 'disabled', 'theme']
-  }
+  _createClass(ButtonComponent, [{
+    key: 'clickEffect',
+    value: function clickEffect (event) {} // this.classList.add('hello')
 
-  /**
-   * Callback when the component get created.
-   */
-  connectedCallback () {
-    if (this.shadowRoot.querySelector('p') !== null) {
-      this.shadowRoot.querySelector('p').textContent = this.textContent
+    /**
+     * Method returns a list of attributes supported by this component.<br>
+     */
+
+  }, {
+    key: 'connectedCallback',
+
+    /**
+     * Callback when the component get created.
+     */
+    value: function connectedCallback () {
+      console.log('Component connected!')
     }
-    if (!this.hasAttribute('size')) {
-      this.setAttribute('size', 'default')
+    /**
+     * Callback when the component get disconnected.
+     */
+
+  }, {
+    key: 'disconnectedCallback',
+    value: function disconnectedCallback () {
+      console.log('Component disconnect!')
     }
-    if (!this.hasAttribute('type')) {
-      this.setAttribute('type', 'default')
+    /**
+     * Callback for when the supported attributes change its value.
+     * @param {string} attrName - the name of the attribute.
+     * @param {*} oldVal - the old value of the attribute.
+     * @param {*} newVal - the new value of the attribute.
+     */
+
+  }, {
+    key: 'attributeChangedCallback',
+    value: function attributeChangedCallback (attrName, oldVal, newVal) {}
+  }], [{
+    key: 'observedAttributes',
+    get: function get () {
+      return ['size', 'type', 'plain', 'round', 'circle']
     }
-    console.log('Component connected!')
-  }
+  }])
 
-  /**
-   * Callback when the component get disconnected.
-   */
-  disconnectedCallback () {
-    console.log('Component disconnect!')
-  }
+  return ButtonComponent
+}(_wrapNativeSuper(HTMLElement)))
 
-  /**
-   * Getter for type attribute.
-   */
-  get type () {
-    return this.getAttribute('type')
-  }
-
-  /**
-   * Setter for type attribute.
-   * @param {string} newVal - The new value for type
-   */
-  set type (newVal) {
-    this.setAttribute('type', newVal)
-  }
-
-  /**
-   * Getter for size attribute.
-   */
-  get size () {
-    return this.getAttribute('size')
-  }
-
-  /**
-   * Setter for size attribute.
-   * @param {string} newVal - The new value for size
-   */
-  set size (newVal) {
-    this.setAttribute('size', newVal)
-  }
-
-  /**
-   * Getter for plain attribute.
-   */
-  get plain () {
-    return this.hasAttribute('plain')
-  }
-
-  /**
-   * Setter for plain attribute.
-   * @param {string} newVal - The new value for plain
-   */
-  set plain (newVal) {
-    if (newVal) {
-      this.setAttribute('plain', '')
-    } else {
-      this.removeAttribute('plain')
-    }
-  }
-
-  /**
-   * Getter for round attribute.
-   */
-  get round () {
-    return this.hasAttribute('round')
-  }
-
-  /**
-   * Setter for round attribute.
-   * @param {string} newVal - The new value for round
-   */
-  set round (newVal) {
-    if (newVal) {
-      this.setAttribute('round', '')
-    } else {
-      this.removeAttribute('round')
-    }
-  }
-
-  /**
-   * Getter for circle attribute.
-   */
-  get circle () {
-    return this.hasAttribute('circle')
-  }
-
-  /**
-   * Setter for circle attribute.
-   * @param {string} newVal - The new value for circle
-   */
-  set circle (newVal) {
-    if (newVal) {
-      this.setAttribute('circle', '')
-    } else {
-      this.removeAttribute('circle')
-    }
-  }
-
-  /**
-   * Getter for disabled attribute.
-   */
-  get disabled () {
-    return this.hasAttribute('disabled')
-  }
-
-  /**
-   * Setter for disabled attribute.
-   * @param {string} newVal - The new value for disabled
-   */
-  set disabled (newVal) {
-    if (newVal) {
-      this.setAttribute('disabled', '')
-    } else {
-      this.removeAttribute('disabled')
-    }
-  }
-
-  /**
-   * Callback for when the supported attributes change its value.
-   * Currently not using this since most of the logic can be handle in the css
-   * @param {string} attrName - the name of the attribute.
-   * @param {*} oldVal - the old value of the attribute.
-   * @param {*} newVal - the new value of the attribute.
-   */
-  attributeChangedCallback (attrName, oldVal, newVal) {
-  }
-}
 window.customElements.define('button-component', ButtonComponent)
