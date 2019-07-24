@@ -1,0 +1,16 @@
+function postContact(){
+  $.ajax({
+    url: "contact_me.php",
+    type: "post",
+    data: {
+        name: $("#nameContact").val(),
+        email: $("#emailContact").val(),
+        phone: $("#phoneContact").val(),
+        message: $("#messageContact").val(),
+    },
+    success: function (data) {
+        alert("Post Success!");
+        window.location.reload();
+    }
+ });
+}

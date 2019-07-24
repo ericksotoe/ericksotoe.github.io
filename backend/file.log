@@ -1,0 +1,20 @@
+
+> jasper-personal-website-backend@0.0.1 start /Users/kimjaspermui/Dropbox/Website/backend
+> node node_modules/keeling-js/entry.js
+
+[keeling.js:initiateDebug]: on
+[keeling.js:initiateScheduler]: Initiated Scheduler
+[keeling.js:initiateMysql]: MySql config not found: 
+Error: Cannot find module '/Users/kimjaspermui/Dropbox/Website/backend/data/mysql.json'
+[keeling.js:initiateMongo]: Mongo config not found: 
+Error: Cannot find module '/Users/kimjaspermui/Dropbox/Website/backend/data/mongo.json'
+[keeling.js:initiateServer]: Created Express Server
+[keeling.js:initiateSession]: Initiated Session
+[keeling.js:initiateCookie]: Initialized Cookie Parser
+[keeling.js:initiateAjax]: Initiated AJAX
+[keeling.js:initiateRouter]: Initiated Render Engine
+[keeling.js:initiateRouter]: Initiated Router
+[keeling.js:initiateRouter]: Initiated Default Page
+[keeling.js:initiateRouter]: Initiated Static Field
+Successfully started server Keeling Js Default in port 21023
+got the req, with name jasper
