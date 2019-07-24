@@ -11,10 +11,6 @@ function postContact(){
     success: function (data) {
         window.alert("Post Success!");
         window.location.reload();
-    },
-    failure: function (data) {
-      window.alert("Post unsuccessful");
-      window.location.reload();
     }
  });
 }
