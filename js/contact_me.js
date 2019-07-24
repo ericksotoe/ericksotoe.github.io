@@ -1,4 +1,5 @@
 function postContact(){
+  window.alert("entered postContact method");
   $.ajax({
     url: "/mail/contact_me.php",
     type: "post",
@@ -10,7 +11,7 @@ function postContact(){
     },
     success: function (data) {
         window.alert("Post Success!");
-        // window.location.reload();
+        window.location.reload();
     }
  });
 }
