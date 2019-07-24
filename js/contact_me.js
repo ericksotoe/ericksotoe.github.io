@@ -10,7 +10,7 @@ function postContact(){
     },
     success: function (data) {
         window.alert("Post Success!");
-        window.location.reload();
+        // window.location.reload();
     }
  });
 }
