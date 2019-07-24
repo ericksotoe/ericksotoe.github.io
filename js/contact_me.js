@@ -1,6 +1,6 @@
 function postContact(){
   $.ajax({
-    url: "./mail/contact_me.php",
+    url: "contact_me.php",
     type: "post",
     data: {
         name: $("#nameContact").val(),
@@ -9,7 +9,7 @@ function postContact(){
         message: $("#messageContact").val(),
     },
     success: function (data) {
-        alert("Post Success!");
+        window.alert("Post Success!");
         window.location.reload();
     }
  });
