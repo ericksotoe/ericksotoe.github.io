@@ -1,6 +1,6 @@
 function postContact(){
   $.ajax({
-    url: "contact_me.php",
+    url: "mail/contact_me.php",
     type: "post",
     data: {
         name: $("#nameContact").val(),
