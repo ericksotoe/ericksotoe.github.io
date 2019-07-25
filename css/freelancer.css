@@ -454,6 +454,10 @@ footer {
   background-size: cover;
 }
 
+#tymessage {
+  font-size: 10px;
+}
+
 #rw-icon {
 
   width: 350px;
