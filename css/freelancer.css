@@ -464,6 +464,11 @@ footer {
   height: 263px;
 }
 
+/*makes the field not visible to humans*/
+#honeypot {
+  display: none; 
+}
+
 .RecipeRW {
 
   width: 400px;
