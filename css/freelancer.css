@@ -459,9 +459,18 @@ footer {
 }
 
 #rw-icon {
-
   width: 350px;
   height: 263px;
+}
+
+#it-icon {
+  width: 350px;
+  height: 263px;
+}
+
+#pr-icon {
+  width: 350px;
+  height: 425px;
 }
 
 /*makes the field not visible to humans*/
