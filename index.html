@@ -136,8 +136,13 @@
             <hr class="star-primary">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <form class="gform" name="sentMessage" target="_blank" id="contactForm" method="POST"
-                        action="https://script.google.com/macros/s/AKfycbx0Di4lFGl_KxDSTi3YIBMoji6Am3rYNABAunU7c6oG70XQDb0/exec">
+                    <form class="gform" name="sentMessage" target="_blank" id="contactForm"
+                        action="https://script.google.com/macros/s/AKfycbx0Di4lFGl_KxDSTi3YIBMoji6Am3rYNABAunU7c6oG70XQDb0/exec"
+                        method="post">
+                        <!--input id must be honeypot or else it wont work-->
+                        <label class="sr-only"></label>
+                        <input id="honeypot" type="text" name="honeypot" value="" />
+                        <!--the rest of your form-->
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
                                 <label>Name</label>
@@ -185,14 +190,6 @@
                             </h2>
                         </div>
                     </form>
-
-                    <form action="https://script.google.com/macros/s/..." method="post">
-                        <!--input id must be honeypot or else it wont work-->
-                        <label class="sr-only">Keep this field blank</label>
-                        <input id="honeypot" type="text" name="honeypot" value="" />
-                        <!--the rest of your form-->
-                    </form>
-
                 </div>
             </div>
         </div>
